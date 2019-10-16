@@ -1,9 +1,9 @@
 {
-  "name": "aire-console2",
+  "name": "aire-console",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.d.js",
-  "types": "lib",
+  "main": "dist/index.js",
+  "types": "dist",
   "scripts": {
     "start": "ts-node src/aire-console.ts",
     "start-dev": "nodemon --watch 'src/**/*' -e ts --exec ts-node ./src/index.ts",
