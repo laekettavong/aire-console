@@ -1,29 +1,39 @@
-declare enum Color {
-    Red = "\u001B[31m%s\u001B[0m",
-    Green = "\u001B[32m%s\u001B[0m",
-    Yellow = "\u001B[33m%s\u001B[0m",
-    Blue = "\u001B[34m%s\u001B[0m",
-    Cyan = "\u001B[35m%s\u001B[0m",
-    LightBlue = "\u001B[36m%s\u001B[0m",
-    White = "\u001B[37m%s\u001B[0m"
+declare enum ColorCode {
+    Red = "31m",
+    Green = "32m",
+    Yellow = "33m",
+    Blue = "34m",
+    Magenta = "35m",
+    Cyan = "36m",
+    White = "37m",
+    Gray = "90m",
+    LightBlue = "94m"
 }
 declare class AireConsole {
+    private colorCode;
     private color;
     private flick;
-    constructor(color?: Color);
-    toggle(): void;
+    constructor(code?: ColorCode);
     private group;
     private groupEnd;
+    private trace;
+    toggle(): void;
     log(header: string | null, ...output: any[]): void;
+    bold(header: string | null, ...output: any[]): void;
+    italic(header: string | null, ...output: any[]): void;
+    underline(header: string | null, ...output: any[]): void;
+    fill(header: string | null, ...output: any[]): void;
 }
 export declare const Console: {
-    Color: typeof Color;
     red: () => AireConsole;
     green: () => AireConsole;
     yellow: () => AireConsole;
     blue: () => AireConsole;
     lightblue: () => AireConsole;
+    magenta: () => AireConsole;
     cyan: () => AireConsole;
+    white: () => AireConsole;
+    gray: () => AireConsole;
 };
 export {};
 //# sourceMappingURL=aire-console.d.ts.map

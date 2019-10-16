@@ -1,28 +1,30 @@
 import moment from 'moment';
 
-enum Color {
-  Red = '\x1b[31m%s\x1b[0m',
-  Green = '\x1b[32m%s\x1b[0m',
-  Yellow = '\x1b[33m%s\x1b[0m',
-  Blue = '\x1b[34m%s\x1b[0m',
-  Cyan = '\x1b[35m%s\x1b[0m',
-  LightBlue = '\x1b[36m%s\x1b[0m',
-  White = '\x1b[37m%s\x1b[0m'
-}
+
+enum ColorCode {
+  Red = '31m',
+  Green = '32m',
+  Yellow = '33m',
+  Blue = '34m',
+  Magenta = '35m',
+  Cyan = '36m',
+  White = '37m',
+  Gray = '90m',
+  LightBlue = '94m'
+};
 
 class AireConsole {
+  private colorCode: string;
   private color: string;
   private flick: boolean = true;
-  constructor(color: Color = Color.White) {
-    this.color = color;
-  }
 
-  public toggle(): void {
-    this.flick = !this.flick;
+  constructor(code: ColorCode = ColorCode.White) {
+    this.colorCode = code;
+    this.color = `\x1b[${code}%s\x1b[0m`;
   }
 
   private group(header: string | null): void {
-    if (header) console.group(this.color, `\n***[ ${header} ]******************[ ${moment().format()} ]***`);
+    if (header) console.group(this.colorCode, `\n***[ ${header} ]******************[ ${moment().format()} ]***`);
   }
 
   private groupEnd(): void {
@@ -30,14 +32,38 @@ class AireConsole {
     console.log();
   }
 
-  public log(header: string | null, ...output: any[]): void {
+  private trace(color: string, header: string | null, ...output: any[]): void {
     if (this.flick) {
       this.group(header);
       for (let indx in output) {
-        console.log(this.color, `(${+indx + 1}) ${output[indx]}`)
+        console.log(color, `(${+indx + 1}) ${output[indx]}`)
       }
       this.groupEnd();
     }
+  }
+
+  public toggle(): void {
+    this.flick = !this.flick;
+  }
+
+  public log(header: string | null, ...output: any[]): void {
+    this.trace(this.color, header, ...output);
+  }
+
+  public bold(header: string | null, ...output: any[]): void {
+    this.trace(`\x1b[1m[${this.colorCode}m%s\x1b[0m[22m`, header, ...output);
+  }
+
+  public italic(header: string | null, ...output: any[]): void {
+    this.trace(`\x1b[3m[${this.colorCode}m%s\x1b[0m[23m`, header, ...output);
+  }
+
+  public underline(header: string | null, ...output: any[]): void {
+    this.trace(`\x1b[4m[${this.colorCode}m%s\x1b[0m[24m`, header, ...output);
+  }
+
+  public fill(header: string | null, ...output: any[]): void {
+    this.trace(`\x1b[7m[${this.colorCode}m%s\x1b[0m[27m`, header, ...output);
   }
 }
 
@@ -48,48 +74,67 @@ export const Console = (() => {
   let yellowConsole: AireConsole;
   let blueConsole: AireConsole;
   let lightBlueConsole: AireConsole;
+  let magentaConsole: AireConsole;
   let cyanConsole: AireConsole;
+  let whiteConsole: AireConsole;
+  let grayConsole: AireConsole;
 
   const getRed = (): AireConsole => {
     if (!redConsole) {
-      redConsole = new AireConsole(Color.Red);
+      redConsole = new AireConsole(ColorCode.Red);
     }
     return redConsole;
   }
 
   const getGreen = (): AireConsole => {
-    if (!greenConsole) greenConsole = new AireConsole(Color.Green);
+    if (!greenConsole) greenConsole = new AireConsole(ColorCode.Green);
     return greenConsole;
   }
 
   const getYellow = (): AireConsole => {
-    if (!yellowConsole) yellowConsole = new AireConsole(Color.Yellow);
+    if (!yellowConsole) yellowConsole = new AireConsole(ColorCode.Yellow);
     return yellowConsole;
   }
 
   const getBlue = (): AireConsole => {
-    if (!blueConsole) blueConsole = new AireConsole(Color.Blue);
+    if (!blueConsole) blueConsole = new AireConsole(ColorCode.Blue);
     return blueConsole;
   }
 
   const getLightBlue = (): AireConsole => {
-    if (!lightBlueConsole) lightBlueConsole = new AireConsole(Color.LightBlue);
+    if (!lightBlueConsole) lightBlueConsole = new AireConsole(ColorCode.LightBlue);
     return lightBlueConsole;
   }
 
+  const getMagenta = (): AireConsole => {
+    if (!magentaConsole) magentaConsole = new AireConsole(ColorCode.Magenta);
+    return magentaConsole;
+  }
+
   const getCyan = (): AireConsole => {
-    if (!cyanConsole) cyanConsole = new AireConsole(Color.Cyan);
+    if (!cyanConsole) cyanConsole = new AireConsole(ColorCode.Cyan);
     return cyanConsole;
   }
 
+  const getWhite = (): AireConsole => {
+    if (!whiteConsole) whiteConsole = new AireConsole(ColorCode.White);
+    return whiteConsole;
+  }
+
+  const getGray = (): AireConsole => {
+    if (!grayConsole) grayConsole = new AireConsole(ColorCode.Gray);
+    return grayConsole;
+  }
+
   return {
-    Color,
     red: getRed,
     green: getGreen,
     yellow: getYellow,
     blue: getBlue,
     lightblue: getLightBlue,
-    cyan: getCyan
+    magenta: getMagenta,
+    cyan: getCyan,
+    white: getWhite,
+    gray: getGray
   }
-
 })();

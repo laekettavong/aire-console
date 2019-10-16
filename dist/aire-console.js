@@ -4,40 +4,59 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const moment_1 = __importDefault(require("moment"));
-var Color;
-(function (Color) {
-    Color["Red"] = "\u001B[31m%s\u001B[0m";
-    Color["Green"] = "\u001B[32m%s\u001B[0m";
-    Color["Yellow"] = "\u001B[33m%s\u001B[0m";
-    Color["Blue"] = "\u001B[34m%s\u001B[0m";
-    Color["Cyan"] = "\u001B[35m%s\u001B[0m";
-    Color["LightBlue"] = "\u001B[36m%s\u001B[0m";
-    Color["White"] = "\u001B[37m%s\u001B[0m";
-})(Color || (Color = {}));
+var ColorCode;
+(function (ColorCode) {
+    ColorCode["Red"] = "31m";
+    ColorCode["Green"] = "32m";
+    ColorCode["Yellow"] = "33m";
+    ColorCode["Blue"] = "34m";
+    ColorCode["Magenta"] = "35m";
+    ColorCode["Cyan"] = "36m";
+    ColorCode["White"] = "37m";
+    ColorCode["Gray"] = "90m";
+    ColorCode["LightBlue"] = "94m";
+})(ColorCode || (ColorCode = {}));
+;
 class AireConsole {
-    constructor(color = Color.White) {
+    constructor(code = ColorCode.White) {
         this.flick = true;
-        this.color = color;
-    }
-    toggle() {
-        this.flick = !this.flick;
+        this.colorCode = code;
+        this.color = `\x1b[${code}%s\x1b[0m`;
     }
     group(header) {
         if (header)
-            console.group(this.color, `\n***[ ${header} ]******************[ ${moment_1.default().format()} ]***`);
+            console.group(this.colorCode, `\n***[ ${header} ]******************[ ${moment_1.default().format()} ]***`);
     }
     groupEnd() {
         console.groupEnd();
         console.log();
     }
-    log(header, ...output) {
+    trace(color, header, ...output) {
         if (this.flick) {
             this.group(header);
             for (let indx in output) {
-                console.log(this.color, `(${+indx + 1}) ${output[indx]}`);
+                console.log(color, `(${+indx + 1}) ${output[indx]}`);
             }
             this.groupEnd();
         }
+    }
+    toggle() {
+        this.flick = !this.flick;
+    }
+    log(header, ...output) {
+        this.trace(this.color, header, ...output);
+    }
+    bold(header, ...output) {
+        this.trace(`\x1b[1m[${this.colorCode}m%s\x1b[0m[22m`, header, ...output);
+    }
+    italic(header, ...output) {
+        this.trace(`\x1b[3m[${this.colorCode}m%s\x1b[0m[23m`, header, ...output);
+    }
+    underline(header, ...output) {
+        this.trace(`\x1b[4m[${this.colorCode}m%s\x1b[0m[24m`, header, ...output);
+    }
+    fill(header, ...output) {
+        this.trace(`\x1b[7m[${this.colorCode}m%s\x1b[0m[27m`, header, ...output);
     }
 }
 exports.Console = (() => {
@@ -46,46 +65,66 @@ exports.Console = (() => {
     let yellowConsole;
     let blueConsole;
     let lightBlueConsole;
+    let magentaConsole;
     let cyanConsole;
+    let whiteConsole;
+    let grayConsole;
     const getRed = () => {
         if (!redConsole) {
-            redConsole = new AireConsole(Color.Red);
+            redConsole = new AireConsole(ColorCode.Red);
         }
         return redConsole;
     };
     const getGreen = () => {
         if (!greenConsole)
-            greenConsole = new AireConsole(Color.Green);
+            greenConsole = new AireConsole(ColorCode.Green);
         return greenConsole;
     };
     const getYellow = () => {
         if (!yellowConsole)
-            yellowConsole = new AireConsole(Color.Yellow);
+            yellowConsole = new AireConsole(ColorCode.Yellow);
         return yellowConsole;
     };
     const getBlue = () => {
         if (!blueConsole)
-            blueConsole = new AireConsole(Color.Blue);
+            blueConsole = new AireConsole(ColorCode.Blue);
         return blueConsole;
     };
     const getLightBlue = () => {
         if (!lightBlueConsole)
-            lightBlueConsole = new AireConsole(Color.LightBlue);
+            lightBlueConsole = new AireConsole(ColorCode.LightBlue);
         return lightBlueConsole;
+    };
+    const getMagenta = () => {
+        if (!magentaConsole)
+            magentaConsole = new AireConsole(ColorCode.Magenta);
+        return magentaConsole;
     };
     const getCyan = () => {
         if (!cyanConsole)
-            cyanConsole = new AireConsole(Color.Cyan);
+            cyanConsole = new AireConsole(ColorCode.Cyan);
         return cyanConsole;
     };
+    const getWhite = () => {
+        if (!whiteConsole)
+            whiteConsole = new AireConsole(ColorCode.White);
+        return whiteConsole;
+    };
+    const getGray = () => {
+        if (!grayConsole)
+            grayConsole = new AireConsole(ColorCode.Gray);
+        return grayConsole;
+    };
     return {
-        Color,
         red: getRed,
         green: getGreen,
         yellow: getYellow,
         blue: getBlue,
         lightblue: getLightBlue,
-        cyan: getCyan
+        magenta: getMagenta,
+        cyan: getCyan,
+        white: getWhite,
+        gray: getGray
     };
 })();
 //# sourceMappingURL=aire-console.js.map
