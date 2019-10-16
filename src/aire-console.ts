@@ -93,10 +93,3 @@ export const Console = (() => {
   }
 
 })();
-
-
-Console.red().log(null, "one", "two");
-Console.red().toggle();
-Console.red().toggle();
-Console.red().log("this is red", "three", "four", "five");
-Console.lightblue().log("this is cyan", "three", "four", "five");

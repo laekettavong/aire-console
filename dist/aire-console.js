@@ -88,9 +88,4 @@ exports.Console = (() => {
         cyan: getCyan
     };
 })();
-exports.Console.red().log(null, "one", "two");
-exports.Console.red().toggle();
-exports.Console.red().toggle();
-exports.Console.red().log("this is red", "three", "four", "five");
-exports.Console.lightblue().log("this is cyan", "three", "four", "five");
 //# sourceMappingURL=aire-console.js.map
