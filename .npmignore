@@ -1,1 +1,3 @@
 /src
+*dev.ts
+tsconfig.json
