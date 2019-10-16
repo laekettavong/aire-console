@@ -1,0 +1,33 @@
+{
+  "name": "aire-console2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.d.js",
+  "types": "lib",
+  "scripts": {
+    "start": "ts-node src/aire-console.ts",
+    "start-dev": "nodemon --watch 'src/**/*' -e ts --exec ts-node ./src/index.ts",
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "console",
+    "logger"
+  ],
+  "author": "K. Lae Kettavong",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laekettavong/aire-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/laekettavong/aire-console/issues"
+  },
+  "homepage": "https://github.com/laekettavong/aire-console#readme",
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "moment": "^2.24.0",
+    "nodemon": "^1.19.3",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}
