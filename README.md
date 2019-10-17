@@ -1,6 +1,7 @@
 # aire-console
 
 Light-weight native `console` object wrapper for grouping and enumerating colorful outputs.
+
 Supported text colors:
   - `red`
   - `green`
@@ -43,7 +44,7 @@ import { Console } from 'aire-console';
 ```
 
 ``` js
-/*** each output function can takes any number of arguments ***/
+/*** each output function can take any number of arguments ***/
 Console.red().log('This is the red ouput', 'One', 'Two', 'Three');
 Console.red().bold('This is the red ouput', 'One', 'Two', 'Three');
 
@@ -59,7 +60,7 @@ Console.red().fill(null, 'One', 'Two', 'Three');
 <img src="images/red.png" width="600">
 
 ``` js
-/*** each output function can takes any number of arguments ***/
+/*** each output function can take any number of arguments ***/
 Console.magenta().log('This is the magenta ouput', 'One', 'Two', 'Three');
 Console.magenta().bold('This is the magenta ouput', 'One', 'Two', 'Three');
 
@@ -75,7 +76,7 @@ Console.magenta().fill(null, 'One', 'Two', 'Three');
 <img src="images/magenta.png" width="600">
 
 ``` js
-/*** each output function can takes any number of arguments ***/
+/*** each output function can take any number of arguments ***/
 Console.yellow().log('This is the yellow ouput', 'One', 'Two', 'Three');
 Console.yellow().bold('This is the yellow ouput', 'One', 'Two', 'Three');
 
