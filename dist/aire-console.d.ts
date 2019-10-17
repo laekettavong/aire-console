@@ -13,11 +13,13 @@ declare class AireConsole {
     private colorCode;
     private color;
     private flick;
+    private format;
     constructor(code?: ColorCode);
     private group;
     private groupEnd;
     private trace;
     toggle(): void;
+    setDateFormat(format: string): void;
     log(header: string | null, ...output: any[]): void;
     bold(header: string | null, ...output: any[]): void;
     italic(header: string | null, ...output: any[]): void;

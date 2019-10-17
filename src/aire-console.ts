@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-
 enum ColorCode {
   Red = '31m',
   Green = '32m',
@@ -17,14 +16,15 @@ class AireConsole {
   private colorCode: string;
   private color: string;
   private flick: boolean = true;
+  private format: string = '';
 
   constructor(code: ColorCode = ColorCode.White) {
     this.colorCode = code;
     this.color = `\x1b[${code}%s\x1b[0m`;
   }
 
-  private group(header: string | null): void {
-    if (header) console.group(this.colorCode, `\n***[ ${header} ]******************[ ${moment().format()} ]***`);
+  private group(color: string, header: string | null): void {
+    if (header) console.group(color, `\n***[ ${header} ]********************[ ${moment().format(this.format)} ]***`);
   }
 
   private groupEnd(): void {
@@ -34,7 +34,7 @@ class AireConsole {
 
   private trace(color: string, header: string | null, ...output: any[]): void {
     if (this.flick) {
-      this.group(header);
+      this.group(color, header);
       for (let indx in output) {
         console.log(color, `(${+indx + 1}) ${output[indx]}`)
       }
@@ -46,24 +46,28 @@ class AireConsole {
     this.flick = !this.flick;
   }
 
+  public setDateFormat(format: string): void {
+    this.format = format;
+  }
+
   public log(header: string | null, ...output: any[]): void {
     this.trace(this.color, header, ...output);
   }
 
   public bold(header: string | null, ...output: any[]): void {
-    this.trace(`\x1b[1m[${this.colorCode}m%s\x1b[0m[22m`, header, ...output);
+    this.trace(`\x1b[1m[${this.colorCode}%s\x1b[0m[22m`, header, ...output);
   }
 
   public italic(header: string | null, ...output: any[]): void {
-    this.trace(`\x1b[3m[${this.colorCode}m%s\x1b[0m[23m`, header, ...output);
+    this.trace(`\x1b[3m[${this.colorCode}%s\x1b[0m[23m`, header, ...output);
   }
 
   public underline(header: string | null, ...output: any[]): void {
-    this.trace(`\x1b[4m[${this.colorCode}m%s\x1b[0m[24m`, header, ...output);
+    this.trace(`\x1b[4m[${this.colorCode}%s\x1b[0m[24m`, header, ...output);
   }
 
   public fill(header: string | null, ...output: any[]): void {
-    this.trace(`\x1b[7m[${this.colorCode}m%s\x1b[0m[27m`, header, ...output);
+    this.trace(`\x1b[7m[${this.colorCode}%s\x1b[0m[27m`, header, ...output);
   }
 }
 

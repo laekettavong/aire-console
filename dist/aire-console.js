@@ -20,12 +20,13 @@ var ColorCode;
 class AireConsole {
     constructor(code = ColorCode.White) {
         this.flick = true;
+        this.format = '';
         this.colorCode = code;
         this.color = `\x1b[${code}%s\x1b[0m`;
     }
-    group(header) {
+    group(color, header) {
         if (header)
-            console.group(this.colorCode, `\n***[ ${header} ]******************[ ${moment_1.default().format()} ]***`);
+            console.group(color, `\n***[ ${header} ]********************[ ${moment_1.default().format(this.format)} ]***`);
     }
     groupEnd() {
         console.groupEnd();
@@ -33,7 +34,7 @@ class AireConsole {
     }
     trace(color, header, ...output) {
         if (this.flick) {
-            this.group(header);
+            this.group(color, header);
             for (let indx in output) {
                 console.log(color, `(${+indx + 1}) ${output[indx]}`);
             }
@@ -43,20 +44,23 @@ class AireConsole {
     toggle() {
         this.flick = !this.flick;
     }
+    setDateFormat(format) {
+        this.format = format;
+    }
     log(header, ...output) {
         this.trace(this.color, header, ...output);
     }
     bold(header, ...output) {
-        this.trace(`\x1b[1m[${this.colorCode}m%s\x1b[0m[22m`, header, ...output);
+        this.trace(`\x1b[1m[${this.colorCode}%s\x1b[0m[22m`, header, ...output);
     }
     italic(header, ...output) {
-        this.trace(`\x1b[3m[${this.colorCode}m%s\x1b[0m[23m`, header, ...output);
+        this.trace(`\x1b[3m[${this.colorCode}%s\x1b[0m[23m`, header, ...output);
     }
     underline(header, ...output) {
-        this.trace(`\x1b[4m[${this.colorCode}m%s\x1b[0m[24m`, header, ...output);
+        this.trace(`\x1b[4m[${this.colorCode}%s\x1b[0m[24m`, header, ...output);
     }
     fill(header, ...output) {
-        this.trace(`\x1b[7m[${this.colorCode}m%s\x1b[0m[27m`, header, ...output);
+        this.trace(`\x1b[7m[${this.colorCode}%s\x1b[0m[27m`, header, ...output);
     }
 }
 exports.Console = (() => {
