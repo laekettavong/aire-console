@@ -1,19 +1,23 @@
 {
   "name": "aire-console",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight utility wrapper class around native console",
   "main": "dist/index.js",
   "types": "dist",
   "scripts": {
-    "start": "ts-node src/delete.ts",
-    "start-dev": "nodemon --watch 'src/**/*' -e ts --exec ts-node ./src/*.ts",
+    "start": "nodemon --watch 'src/**/*' -e ts --exec ts-node ./src/*.ts",
     "build": "tsc -p ."
   },
   "keywords": [
     "aire-console",
     "console",
     "logger",
-    "color"
+    "tracer",
+    "color",
+    "format",
+    "log",
+    "output",
+    "trace"
   ],
   "author": "K. Lae Kettavong",
   "license": "MIT",
