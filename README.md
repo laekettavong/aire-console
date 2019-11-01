@@ -90,3 +90,22 @@ Console.yellow().underline('This is the yellow ouput', 'One', 'Two', 'Three');
 Console.yellow().fill(null, 'One', 'Two', 'Three');
 ```
 <img src="images/yellow.png" width="600">
+
+```js
+/*** each output function can take any number of arguments ***/
+Console.green().log('This is the green ouput', 'One', 'Two', 'Three');
+
+// turn off logging
+Console.green().toggle(); // any invocations beyond here will not be output
+Console.green().bold('This is the green ouput', 'One', 'Two', 'Three');
+Console.green().setDateFormat('MMM Do YY');
+Console.green().italic('This is the green ouput', 'One', 'Two', 'Three');
+Console.green().underline('This is the green ouput', 'One', 'Two', 'Three');
+
+// turn on logging
+Console.green().toggle(); // resume output
+Console.green().fill(null, 'One', 'Two', 'Three');
+```
+<img src="images/green.png" width="600">
+
+

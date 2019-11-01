@@ -1,6 +1,6 @@
 {
   "name": "aire-console",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Lightweight utility wrapper class around native console",
   "main": "dist/index.js",
   "types": "dist",
