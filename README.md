@@ -19,6 +19,9 @@ Supported text formats:
   - `underline`
   - `fill`
 
+Turn off/on output
+  - `toggle`
+
 ## Installation
 
 Using npm:
@@ -59,6 +62,8 @@ Console.red().fill(null, 'One', 'Two', 'Three');
 ```
 <img src="images/red.png" width="600">
 
+
+
 ``` js
 /*** each output function can take any number of arguments ***/
 Console.magenta().log('This is the magenta ouput', 'One', 'Two', 'Three');
@@ -75,6 +80,8 @@ Console.magenta().fill(null, 'One', 'Two', 'Three');
 ```
 <img src="images/magenta.png" width="600">
 
+
+
 ``` js
 /*** each output function can take any number of arguments ***/
 Console.yellow().log('This is the yellow ouput', 'One', 'Two', 'Three');
@@ -90,6 +97,8 @@ Console.yellow().underline('This is the yellow ouput', 'One', 'Two', 'Three');
 Console.yellow().fill(null, 'One', 'Two', 'Three');
 ```
 <img src="images/yellow.png" width="600">
+
+
 
 ```js
 /*** each output function can take any number of arguments ***/
